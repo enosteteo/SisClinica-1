@@ -1,6 +1,6 @@
 package br.ufpb.dcx.poo.sisclinica.models;
 
-public class Medico{
+public class MedicoModel{
 
     private String nome;
     private String especialidade;
@@ -11,7 +11,7 @@ public class Medico{
     private boolean plantao;
     private final int nivelDeAcesso;
 
-    public Medico(String nome, String especialidade, int crm,
+    public MedicoModel(String nome, String especialidade, int crm,
             String cpf, int salaDeAtendimento, double salario, boolean plantao) {
         this.setNome(nome);
         this.setEspecialidade(especialidade);
