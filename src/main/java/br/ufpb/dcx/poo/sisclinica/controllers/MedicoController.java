@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufpb.dcx.poo.sisclinica.models.MedicoModel;
-import br.ufpb.dcx.poo.sisclinica.services.Clinica;
+import br.ufpb.dcx.poo.sisclinica.services.ClinicaService;
 
 @RestController
 public class MedicoController {
 	
 	
 	@Autowired
-	private Clinica service;
+	private ClinicaService service;
 
 	@RequestMapping(value = "/medicos", method = RequestMethod.GET)
 	public ResponseEntity<List<MedicoModel>> listar() {

@@ -5,10 +5,11 @@
  */
 package br.ufpb.dcx.poo.sisclinica.services;
 
-
-import br.ufpb.dcx.poo.sisclinica.models.PacienteModel;
+import br.ufpb.dcx.poo.sisclinica.models.MedicoModel;
+import br.ufpb.dcx.poo.sisclinica.models.Paciente;
 import java.util.ArrayList;
 import java.util.List;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,14 +20,15 @@ import org.springframework.stereotype.Service;
 public class ClinicaService{
     
     private String nome;
-    private List<PacienteModel> pacientes;
+    private List<Paciente> pacientes;
+    private List<MedicoModel> medicos;
     private int ultimoIdPaciente = 0;
-
     
-    public ClinicaService(){
+
+	public ClinicaService(){
         this.nome = null;
         this.pacientes = new ArrayList<>();
-
+        this.medicos = new ArrayList<>();
     }
 
     public String getNome() {
@@ -37,69 +39,117 @@ public class ClinicaService{
         this.nome = nome;
     }
     
-    public List<PacienteModel> getPacientes() {
+    public List<Paciente> getPacientes() {
         return pacientes;
     }
 
-    public void setPacientes(List<PacienteModel> pacientes) {
+    public void setPacientes(List<Paciente> pacientes) {
         this.pacientes = pacientes;
     }
 
+    public int getUltimoIdPaciente() {
+    	return ultimoIdPaciente;
+    }
+    
+    public void setUltimoIdPaciente(int ultimoIdPaciente) {
+    	this.ultimoIdPaciente = ultimoIdPaciente;
+    }
+    
+    public void setMedicos(List<MedicoModel> medicos) {
+    	this.medicos = medicos;
+    }
 
-    public void adicionarPaciente(PacienteModel paciente) throws Exception{
-        for(PacienteModel p : this.getPacientes()){
+    public Paciente adicionarPaciente(Paciente paciente) throws Exception{
+        for(Paciente p : this.getPacientes()){
             if(p.getNome().equalsIgnoreCase(paciente.getNome())){
                 throw new Exception("Paciente já existe no sistema!");
             }
         }
-        paciente.setId(++ultimoIdPaciente);
-        this.pacientes.add(paciente); 
+        this.pacientes.add(paciente);
+        return paciente;
     }
     
-    public PacienteModel procurarPaciente(int id) throws Exception{
-        for(PacienteModel p : this.getPacientes()){
+    public Paciente procurarPaciente(int id) throws Exception{
+        for(Paciente p : this.getPacientes()){
             if(p.getId() == id){
                 return p;
             }
         }
-        
-        throw new Exception("Paciente não encontrado");
+        throw new Exception("Paciente já existe no sistema!");
+    }
+    
+    public Paciente atualizaPaciente(int id, Paciente pacienteAtualizado) throws Exception{
+        List<Paciente> listaPacientes = this.getPacientes();
+        ModelMapper mp = new ModelMapper();
+        for(Paciente p : listaPacientes){
+            if(p.getId() == id){
+                pacienteAtualizado.setId(id);
+                mp.map(pacienteAtualizado, p);
+                return p;
+                
+            }
+        }
+        throw new Exception("ID não encontrado");
     }
     
     public boolean removePaciente(int id) throws Exception{
-        List<PacienteModel> pacientes = this.getPacientes();
-        for(PacienteModel p : pacientes){
+        List<Paciente> listaPacientes = this.getPacientes();
+        for(Paciente p : listaPacientes){
             if(p.getId() == id){
-                this.pacientes.remove(p);
+                listaPacientes.remove(p);
                 return true;
-            }
-        } 
-        throw new Exception("ID não encontrado!");
-    }
-    
-    public PacienteModel atualizaPaciente(int id, PacienteModel pacienteAtualizado) throws Exception{
-        List<PacienteModel> pacientes = this.getPacientes();
-        for(PacienteModel p : pacientes){
-            if(p.getId() == id){
-                pacienteAtualizado.setId(id);
-                int index = pacientes.indexOf(p);
-                pacientes.remove(p);
-                pacientes.add(index,pacienteAtualizado);
-                return pacienteAtualizado;
             }
         }
         
-        throw new Exception("ID não encontrado!");
+        throw new Exception("Paciente não encontrado!");
     }
-
-    public int getUltimoIdPaciente() {
-        return ultimoIdPaciente;
-    }
-
-    public void setUltimoIdPaciente(int ultimoIdPaciente) {
-        this.ultimoIdPaciente = ultimoIdPaciente;
-    }
-  
     
+    public MedicoModel adicionarMedico(MedicoModel medico) throws Exception{
+    	for(MedicoModel m: medicos) {
+    		if(m.getId() == medico.getId()) {
+    			throw new Exception("Já existe um medico com este id!");
+    		}
+    	}
+		this.medicos.add(medico);
+		return medico;
+    }
+    
+    public List<MedicoModel> getMedicos(){
+    	return medicos;
+    }
+    
+    public MedicoModel buscarMedico(int id) throws Exception {
+    	for (MedicoModel m : medicos) {
+			if(id == m.getId()) {
+				return m;
+			}
+		}
+		throw new Exception("Não existe medico com este id!");
+
+    }
+
+	public MedicoModel atualizarMedico(MedicoModel medico, int id) {
+		for (MedicoModel m : medicos) {
+			if(m.getId() == id) {
+				medico.setId(id);
+				int i = medicos.indexOf(m);
+				medicos.remove(m);
+				medicos.add(i, medico);
+				return medico;
+			}
+		}
+		return null;
+	}
+
+	public void deletarMedico(int id) throws Exception {
+		for (MedicoModel m : medicos) {
+			if(m.getId() == id) {
+				medicos.remove(m);
+			}else {
+				throw new Exception("Medico de Id"+id+" não existe");
+			}
+		}
+		
+	}
     
 }

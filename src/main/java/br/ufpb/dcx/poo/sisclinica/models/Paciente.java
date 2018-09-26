@@ -1,6 +1,6 @@
 package br.ufpb.dcx.poo.sisclinica.models;
 
-public class PacienteModel {
+public class Paciente {
 
     private int id;
     private String nome;
@@ -14,11 +14,12 @@ public class PacienteModel {
     private String uf;
     private String tipoConsulta;
 
-    public PacienteModel() {
+    public Paciente() {
         this.nome = null;
     }
 
-    public PacienteModel(String nome, String raca, String dataNascimento, String cpf, String rg, String sexo, String nacionalidade, String cep, String uf, String tipoConsulta) {
+    //ModelMapper org.modelMapper
+    public Paciente(String nome, String raca, String dataNascimento, String cpf, String rg, String sexo, String nacionalidade, String cep, String uf, String tipoConsulta) {
         this.nome = nome;
         this.raca = raca;
         this.dataNascimento = dataNascimento;

@@ -5,7 +5,7 @@
  */
 package br.ufpb.dcx.poo.sisclinica.controllers;
 
-import br.ufpb.dcx.poo.sisclinica.models.PacienteModel;
+import br.ufpb.dcx.poo.sisclinica.models.Paciente;
 import br.ufpb.dcx.poo.sisclinica.services.ClinicaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,23 +28,23 @@ public class PacienteController {
     private ClinicaService service;
 
     @RequestMapping(value = "/pacientes", method = RequestMethod.GET)
-    public ResponseEntity<List<PacienteModel>> listar() {
-        List<PacienteModel> resultado = this.service.getPacientes();
-        return new ResponseEntity<List<PacienteModel>>(resultado, HttpStatus.OK);
+    public ResponseEntity<List<Paciente>> listar() {
+        List<Paciente> resultado = this.service.getPacientes();
+        return new ResponseEntity<List<Paciente>>(resultado, HttpStatus.OK);
 
     }
 
     @RequestMapping(value = "/pacientes", method = RequestMethod.POST)
 
-    public ResponseEntity<String> adicionar(@RequestBody PacienteModel paciente) throws Exception {
+    public ResponseEntity<String> adicionar(@RequestBody Paciente paciente) throws Exception {
         this.service.adicionarPaciente(paciente);
         return new ResponseEntity<>("{ \"status\": \"sucess\"}", HttpStatus.OK);
     }
     
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.GET)
     
-    public ResponseEntity<PacienteModel> listarPacienteId(@PathVariable(value="id") int id) throws Exception{
-        PacienteModel pacienteId;
+    public ResponseEntity<Paciente> listarPacienteId(@PathVariable(value="id") int id) throws Exception{
+        Paciente pacienteId;
         pacienteId = this.service.procurarPaciente(id);
         return new ResponseEntity<>(pacienteId, HttpStatus.OK);
     }
@@ -56,8 +56,8 @@ public class PacienteController {
     }
     
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<PacienteModel> atualizarPacienteId(@PathVariable(value = "id") int id, @RequestBody PacienteModel pacienteAtualizado) throws Exception{
-        PacienteModel pacienteFinal = this.service.atualizaPaciente(id, pacienteAtualizado);
+    public ResponseEntity<Paciente> atualizarPacienteId(@PathVariable(value = "id") int id, @RequestBody Paciente pacienteAtualizado) throws Exception{
+        Paciente pacienteFinal = this.service.atualizaPaciente(id, pacienteAtualizado);
         return new ResponseEntity<>(pacienteFinal,HttpStatus.OK);
     }
     
