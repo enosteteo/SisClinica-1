@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufpb.dcx.poo.sisclinica.models.Medico;
+import br.ufpb.dcx.poo.sisclinica.models.MedicoModel;
 import br.ufpb.dcx.poo.sisclinica.services.Clinica;
 
 @RestController
@@ -25,26 +25,26 @@ public class MedicoController {
 	private Clinica service;
 
 	@RequestMapping(value = "/medicos", method = RequestMethod.GET)
-	public ResponseEntity<List<Medico>> listar() {
-		List<Medico> resultado = service.getMedicos();
-		return new ResponseEntity<List<Medico>>(resultado, HttpStatus.OK);
+	public ResponseEntity<List<MedicoModel>> listar() {
+		List<MedicoModel> resultado = service.getMedicos();
+		return new ResponseEntity<List<MedicoModel>>(resultado, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/medicos/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Medico> buscarMedico(@PathVariable("id") int id) throws Exception{
-		Medico retorno = this.service.buscarMedico(id);
-		return new ResponseEntity<Medico>(retorno, HttpStatus.OK);
+	public ResponseEntity<MedicoModel> buscarMedico(@PathVariable("id") int id) throws Exception{
+		MedicoModel retorno = this.service.buscarMedico(id);
+		return new ResponseEntity<MedicoModel>(retorno, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/medicos",  method = RequestMethod.POST)
-	public ResponseEntity<Medico> adicionar(@RequestBody Medico medico) throws Exception{
-		Medico resultado = this.service.adicionarMedico(medico);
+	public ResponseEntity<MedicoModel> adicionar(@RequestBody MedicoModel medico) throws Exception{
+		MedicoModel resultado = this.service.adicionarMedico(medico);
 		return new ResponseEntity<>(resultado, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/medicos/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Medico> atualizarMedico(@PathVariable("id") int id, @RequestBody Medico medico) throws Exception{
-		Medico resultado = this.service.atualizarMedico(medico, id);
+	public ResponseEntity<MedicoModel> atualizarMedico(@PathVariable("id") int id, @RequestBody MedicoModel medico) throws Exception{
+		MedicoModel resultado = this.service.atualizarMedico(medico, id);
 		return new ResponseEntity<>(resultado, HttpStatus.OK);
 	}
 	

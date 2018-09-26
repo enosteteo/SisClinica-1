@@ -1,6 +1,6 @@
 package br.ufpb.dcx.poo.sisclinica.models;
 
-public class Medico{
+public class MedicoModel{
 
     private String nome;
     private int id;
@@ -11,8 +11,9 @@ public class Medico{
     private double salario;
     private boolean plantao;
     private final int nivelDeAcesso;
+<<<<<<< HEAD:src/main/java/br/ufpb/dcx/poo/sisclinica/models/Medico.java
 */
-    public Medico(String nome, int id
+    public MedicoModel(String nome, int id
            /*String especialidade, String cpf, int salaDeAtendimento, double salario, boolean plantao*/) {
         this.setNome(nome);
         this.setId(id);

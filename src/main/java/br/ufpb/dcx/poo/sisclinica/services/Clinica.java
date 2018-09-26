@@ -5,8 +5,8 @@
  */
 package br.ufpb.dcx.poo.sisclinica.services;
 
-import br.ufpb.dcx.poo.sisclinica.models.Medico;
-import br.ufpb.dcx.poo.sisclinica.models.Paciente;
+import br.ufpb.dcx.poo.sisclinica.models.MedicoModel;
+import br.ufpb.dcx.poo.sisclinica.models.PacienteModel;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 public class Clinica{
     
     private String nome;
-    private List<Paciente> pacientes;
-    private List<Medico> medicos;
+    private List<PacienteModel> pacientes;
+    private List<MedicoModel> medicos;
     private int ultimoIdPaciente = 0;
     
 
@@ -38,11 +38,11 @@ public class Clinica{
         this.nome = nome;
     }
     
-    public List<Paciente> getPacientes() {
+    public List<PacienteModel> getPacientes() {
         return pacientes;
     }
 
-    public void setPacientes(List<Paciente> pacientes) {
+    public void setPacientes(List<PacienteModel> pacientes) {
         this.pacientes = pacientes;
     }
 
@@ -54,12 +54,12 @@ public class Clinica{
     	this.ultimoIdPaciente = ultimoIdPaciente;
     }
     
-    public void setMedicos(List<Medico> medicos) {
+    public void setMedicos(List<MedicoModel> medicos) {
     	this.medicos = medicos;
     }
 
-    public void adicionarPaciente(Paciente paciente) throws Exception{
-        for(Paciente p : this.getPacientes()){
+    public void adicionarPaciente(PacienteModel paciente) throws Exception{
+        for(PacienteModel p : this.getPacientes()){
             if(p.getNome().equalsIgnoreCase(paciente.getNome())){
                 throw new Exception("Paciente já existe no sistema!");
             }
@@ -68,8 +68,8 @@ public class Clinica{
     }
     
     
-    public Medico adicionarMedico(Medico medico) throws Exception{
-    	for(Medico m: medicos) {
+    public MedicoModel adicionarMedico(MedicoModel medico) throws Exception{
+    	for(MedicoModel m: medicos) {
     		if(m.getId() == medico.getId()) {
     			throw new Exception("Já existe um medico com este id!");
     		}
@@ -78,12 +78,12 @@ public class Clinica{
 		return medico;
     }
     
-    public List<Medico> getMedicos(){
+    public List<MedicoModel> getMedicos(){
     	return medicos;
     }
     
-    public Medico buscarMedico(int id) throws Exception {
-    	for (Medico m : medicos) {
+    public MedicoModel buscarMedico(int id) throws Exception {
+    	for (MedicoModel m : medicos) {
 			if(id == m.getId()) {
 				return m;
 			}
@@ -92,8 +92,8 @@ public class Clinica{
 
     }
 
-	public Medico atualizarMedico(Medico medico, int id) {
-		for (Medico m : medicos) {
+	public MedicoModel atualizarMedico(MedicoModel medico, int id) {
+		for (MedicoModel m : medicos) {
 			if(m.getId() == id) {
 				medico.setId(id);
 				int i = medicos.indexOf(m);
@@ -106,7 +106,7 @@ public class Clinica{
 	}
 
 	public void deletarMedico(int id) throws Exception {
-		for (Medico m : medicos) {
+		for (MedicoModel m : medicos) {
 			if(m.getId() == id) {
 				medicos.remove(m);
 			}else {
