@@ -1,5 +1,5 @@
 package br.ufpb.dcx.poo.sisclinica.models;
-public class Paciente {
+public class PacienteModel {
 	private String nome;
 //	private String raca;
 //	private String dataNascimento;
@@ -11,11 +11,11 @@ public class Paciente {
 //	private String uf;
 //	private String tipoConsulta;
 	
-        public Paciente(){
+        public PacienteModel(){
             this.nome = null;
         }
         
-	public Paciente (String nome) {
+	public PacienteModel (String nome) {
 	this.nome = nome;
 //	this.raca = raca;
 //	this.dataNascimento = dataNascimento;
