@@ -4,26 +4,25 @@ public class MedicoModel{
 
     private String nome;
     private int id;
-    /*private String especialidade;
+    private String especialidade;
     private int crm;
     private String cpf;
     private int salaDeAtendimento;
     private double salario;
     private boolean plantao;
     private final int nivelDeAcesso;
-<<<<<<< HEAD:src/main/java/br/ufpb/dcx/poo/sisclinica/models/Medico.java
-*/
-    public MedicoModel(String nome, int id
-           /*String especialidade, String cpf, int salaDeAtendimento, double salario, boolean plantao*/) {
+
+    public MedicoModel(String nome, int id,
+           String especialidade, String cpf, int salaDeAtendimento, double salario, boolean plantao) {
         this.setNome(nome);
         this.setId(id);
-        /*this.setEspecialidade(especialidade);
+        this.setEspecialidade(especialidade);
         this.setCrm(crm);
         this.setCpf(cpf);
         this.setSalaDeAtendimento(salaDeAtendimento);
         this.setSalario(salario);
         this.setPlantao(plantao);
-        this.nivelDeAcesso = 1;*/
+        this.nivelDeAcesso = 1;
     }
 
     public int getId() {
@@ -41,7 +40,7 @@ public class MedicoModel{
         this.nome = nome;
     }
 
-    /*public String getEspecialidade() {
+    public String getEspecialidade() {
         return especialidade;
     }
 
@@ -92,6 +91,6 @@ public class MedicoModel{
 
     public int getNivelDeAcesso() {
         return nivelDeAcesso;
-    }*/
+    }
 
 }

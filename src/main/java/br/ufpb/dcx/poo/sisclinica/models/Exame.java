@@ -2,23 +2,23 @@ package br.ufpb.dcx.poo.sisclinica.models;
 
 
 public class Exame {
-	private Paciente paciente;
+	private PacienteModel paciente;
 	private String dataExame;
 	private double valor;
 	private String dataResultado;
 	
-	public Exame(Paciente paciente, String dataExame, double valor, String dataResultado) {
+	public Exame(PacienteModel paciente, String dataExame, double valor, String dataResultado) {
 		this.paciente = paciente;
 		this.dataExame = dataExame;
 		this.valor = valor;
 		this.dataResultado = dataResultado;
 	}
 	
-	public Paciente getPaciente() {
+	public PacienteModel getPaciente() {
 		return this.paciente;
 	}
 	
-	public void setPaciente(Paciente paciente) {
+	public void setPaciente(PacienteModel paciente) {
 		this.paciente = paciente;
 	}
 	

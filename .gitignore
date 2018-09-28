@@ -1,4 +1,6 @@
 /target/
+<<<<<<< HEAD
+=======
 
 .metadata
 bin/
@@ -22,3 +24,4 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+>>>>>>> 5a4f3ddb0b711bc66efd880c85a20f522c3512c2
