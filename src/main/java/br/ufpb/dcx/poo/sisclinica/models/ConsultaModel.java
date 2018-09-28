@@ -7,9 +7,11 @@ public class ConsultaModel {
     private String dataConsulta;
     private String dataRetorno;
     private boolean aberta;
+    private int id;
+
 
     public ConsultaModel(PacienteModel paciente, MedicoModel medico, String dataConsulta, String dataRetorno, boolean aberta) {
-        this.paciente = paciente;
+       this.paciente = paciente;
         this.medico = medico;
         this.dataConsulta = dataConsulta;
         this.dataRetorno = dataRetorno;
@@ -55,6 +57,15 @@ public class ConsultaModel {
     public void setAberta(boolean aberta) {
         this.aberta = aberta;
     }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
     
 }

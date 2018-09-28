@@ -3,6 +3,7 @@ package br.ufpb.dcx.poo.sisclinica.models;
 public class MedicoModel{
 
     private String nome;
+    private int id;
     private String especialidade;
     private int crm;
     private String cpf;
@@ -11,9 +12,10 @@ public class MedicoModel{
     private boolean plantao;
     private final int nivelDeAcesso;
 
-    public MedicoModel(String nome, String especialidade, int crm,
-            String cpf, int salaDeAtendimento, double salario, boolean plantao) {
+    public MedicoModel(String nome, int id,
+           String especialidade, String cpf, int salaDeAtendimento, double salario, boolean plantao) {
         this.setNome(nome);
+        this.setId(id);
         this.setEspecialidade(especialidade);
         this.setCrm(crm);
         this.setCpf(cpf);
@@ -23,7 +25,14 @@ public class MedicoModel{
         this.nivelDeAcesso = 1;
     }
 
-    public String getNome() {
+    public int getId() {
+    	return id;
+    }
+    public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNome() {
         return nome;
     }
 
@@ -46,6 +55,7 @@ public class MedicoModel{
     public void setCrm(int crm) {
         this.crm = crm;
     }
+
 
     public String getCpf() {
         return cpf;
