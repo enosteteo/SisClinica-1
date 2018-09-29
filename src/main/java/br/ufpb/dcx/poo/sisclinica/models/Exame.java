@@ -1,13 +1,13 @@
 package br.ufpb.dcx.poo.sisclinica.models;
 
 
-public class ExameModel {
+public class Exame {
 	private PacienteModel paciente;
 	private String dataExame;
 	private double valor;
 	private String dataResultado;
 	
-	public ExameModel(PacienteModel paciente, String dataExame, double valor, String dataResultado) {
+	public Exame(PacienteModel paciente, String dataExame, double valor, String dataResultado) {
 		this.paciente = paciente;
 		this.dataExame = dataExame;
 		this.valor = valor;

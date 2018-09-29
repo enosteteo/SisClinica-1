@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufpb.dcx.poo.sisclinica.controllers;
 
 import br.ufpb.dcx.poo.sisclinica.models.PacienteModel;
@@ -17,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author nikni
- */
 @RestController
 public class PacienteController {
 
@@ -36,6 +27,7 @@ public class PacienteController {
 
     @RequestMapping(value = "/pacientes", method = RequestMethod.POST)
 
+
     public ResponseEntity<String> adicionar(@RequestBody PacienteModel paciente) throws Exception {
         this.service.adicionarPaciente(paciente);
         return new ResponseEntity<>("{ \"status\": \"sucess\"}", HttpStatus.OK);
@@ -44,7 +36,7 @@ public class PacienteController {
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.GET)
     
     public ResponseEntity<PacienteModel> listarPacienteId(@PathVariable(value="id") int id) throws Exception{
-        PacienteModel pacienteId;
+    	PacienteModel pacienteId;
         pacienteId = this.service.procurarPaciente(id);
         return new ResponseEntity<>(pacienteId, HttpStatus.OK);
     }
@@ -57,7 +49,7 @@ public class PacienteController {
     
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.PUT)
     public ResponseEntity<PacienteModel> atualizarPacienteId(@PathVariable(value = "id") int id, @RequestBody PacienteModel pacienteAtualizado) throws Exception{
-        PacienteModel pacienteFinal = this.service.atualizaPaciente(id, pacienteAtualizado);
+    	PacienteModel pacienteFinal = this.service.atualizaPaciente(id, pacienteAtualizado);
         return new ResponseEntity<>(pacienteFinal,HttpStatus.OK);
     }
     

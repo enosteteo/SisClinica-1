@@ -18,6 +18,7 @@ public class PacienteModel {
         this.nome = null;
     }
 
+    //ModelMapper org.modelMapper
     public PacienteModel(String nome, String raca, String dataNascimento, String cpf, String rg, String sexo, String nacionalidade, String cep, String uf, String tipoConsulta) {
         this.nome = nome;
         this.raca = raca;
