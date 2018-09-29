@@ -1,8 +1,11 @@
 package br.ufpb.dcx.poo.sisclinica.models;
 
-public class PacienteModel {
+import java.util.ArrayList;
+import java.util.List;
 
-    private int id;
+public class Paciente {
+
+    private long id;
     private String nome;
     private String raca;
     private String dataNascimento;
@@ -13,13 +16,14 @@ public class PacienteModel {
     private String cep;
     private String uf;
     private String tipoConsulta;
+    private List<Exame> exames;
+    private long idUltimoExame = 0;
 
-    public PacienteModel() {
+    public Paciente() {
         this.nome = null;
     }
 
-    //ModelMapper org.modelMapper
-    public PacienteModel(String nome, String raca, String dataNascimento, String cpf, String rg, String sexo, String nacionalidade, String cep, String uf, String tipoConsulta) {
+    public Paciente(String nome, String raca, String dataNascimento, String cpf, String rg, String sexo, String nacionalidade, String cep, String uf, String tipoConsulta) {
         this.nome = nome;
         this.raca = raca;
         this.dataNascimento = dataNascimento;
@@ -30,17 +34,16 @@ public class PacienteModel {
         this.cep = cep;
         this.uf = uf;
         this.tipoConsulta = tipoConsulta;
+        this.exames = new ArrayList<>();
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
-    
-    
 
     public String getNome() {
         return this.nome;
@@ -124,6 +127,36 @@ public class PacienteModel {
 
     public void setTipoConsulta(String tipoConsulta) {
         this.tipoConsulta = tipoConsulta;
+    }
+
+    public List<Exame> getExames() {
+        return this.exames;
+    }
+
+    public void setExames(List<Exame> exames) {
+        this.exames = exames;
+    }
+
+    public Exame addExame(Exame ex) throws Exception {
+        ex.setId(++this.idUltimoExame);
+        ex.setIdPaciente(this.getId());
+        for (Exame exame : this.getExames()) {
+            if(exame.getId() == ex.getId()){
+                throw new Exception("Exame já cadastrado!");
+            }
+            
+        }
+        this.exames.add(ex);
+        return ex;
+    }
+    
+    public Exame procurarExame(long id) throws Exception{
+        for(Exame ex : this.getExames()){
+            if(ex.getId() == id){
+                return ex;
+            }
+        }
+        throw new Exception("Exame não encontrado!");
     }
 
 }

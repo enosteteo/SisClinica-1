@@ -10,44 +10,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.ufpb.dcx.poo.sisclinica.models.ConsultaModel;
+import br.ufpb.dcx.poo.sisclinica.models.Consulta;
 import br.ufpb.dcx.poo.sisclinica.services.ClinicaService;
 
 public class ConsultaController {
-	@Autowired
-	private ClinicaService service;
 
-	@RequestMapping(value = "/consultas", method = RequestMethod.GET)
-	public ResponseEntity<List<ConsultaModel>> listar() {
-		List<ConsultaModel> resultado = this.service.getConsultas();
-		return new ResponseEntity<List<ConsultaModel>>(resultado, HttpStatus.OK);
+    @Autowired
+    private ClinicaService service;
 
-	}
+    @RequestMapping(value = "/consultas", method = RequestMethod.GET)
+    public ResponseEntity<List<Consulta>> listar() {
+        List<Consulta> resultado = this.service.getConsultas();
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
 
-	@RequestMapping(value = "/consultas", method = RequestMethod.POST)
-	public ResponseEntity<String> adicionar(@RequestBody ConsultaModel consulta) throws Exception {
-		this.service.adicionarConsulta(consulta);
-		return new ResponseEntity<>("{ \"status\": \"sucess\"}", HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/consultas/{id}", method = RequestMethod.GET)
-	public ResponseEntity<ConsultaModel> listarConsultaId(@PathVariable(value="id") int id) throws Exception{
-		ConsultaModel consultaId;
-		consultaId = this.service.procurarConsulta(id);
-		return new ResponseEntity<>(consultaId, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/consultas/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> removeConsultaId(@PathVariable(value = "id") int id) throws Exception{
+    }
+
+    @RequestMapping(value = "/consultas", method = RequestMethod.POST)
+    public ResponseEntity<String> adicionar(@RequestBody Consulta consulta) throws Exception {
+        this.service.adicionarConsulta(consulta);
+        return new ResponseEntity<>("{ \"status\": \"success\"}", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/consultas/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Consulta> listarConsultaId(@PathVariable(value = "id") int id) throws Exception {
+        Consulta consultaId;
+        consultaId = this.service.procurarConsulta(id);
+        return new ResponseEntity<>(consultaId, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/consultas/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeConsultaId(@PathVariable(value = "id") int id) throws Exception {
         this.service.removeConsulta(id);
-        return new ResponseEntity<>("{ \"status\" : \" sucess\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{ \"status\" : \" success\"}", HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/consulta/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<ConsultaModel> atualizarConsultaId(@PathVariable(value = "id") int id, @RequestBody ConsultaModel consultaAtualizada) throws Exception{
-        ConsultaModel consultaFinal = this.service.atualizarConsulta(id, consultaAtualizada);
-        return new ResponseEntity<>(consultaFinal,HttpStatus.OK);
+    public ResponseEntity<Consulta> atualizarConsultaId(@PathVariable(value = "id") int id, @RequestBody Consulta consultaAtualizada) throws Exception {
+        Consulta consultaFinal = this.service.atualizarConsulta(id, consultaAtualizada);
+        return new ResponseEntity<>(consultaFinal, HttpStatus.OK);
     }
-    
 
 }
