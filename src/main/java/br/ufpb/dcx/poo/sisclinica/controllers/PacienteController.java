@@ -29,8 +29,9 @@ public class PacienteController {
 
 
     public ResponseEntity<Paciente> adicionar(@RequestBody Paciente paciente) throws Exception {
-        Paciente pacienteAdicionado = this.service.adicionarPaciente(paciente);
-        return new ResponseEntity<>(pacienteAdicionado, HttpStatus.OK);
+
+        Paciente pacienteRetorno = this.service.adicionarPaciente(paciente);
+        return new ResponseEntity<>(pacienteRetorno, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.GET)
