@@ -26,11 +26,13 @@ public class ClinicaService {
     private List<Medico> medicos;
     private long ultimoIdPaciente = 0;
     private long ultimoIdMedico = 0;
+    private long ultimoIdConsulta = 0;
 
     public ClinicaService() {
         this.nome = null;
         this.pacientes = new ArrayList<>();
         this.medicos = new ArrayList<>();
+        this.consultas = new ArrayList<>();
     }
 
     public String getNome() {
@@ -91,11 +93,13 @@ public class ClinicaService {
 
     public void adicionarConsulta(Consulta consulta) throws Exception {
         for (Consulta consul : this.consultas) {
-            if (consul.getPaciente().getNome().equalsIgnoreCase(consulta.getPaciente().getNome())) {
+            if (this.procurarPaciente(consul.getIdPaciente()).getNome().equalsIgnoreCase(this.procurarPaciente(consulta.getIdPaciente()).getNome())) {
                 throw new Exception("A consulta deste paciente já foi agendada");
             }
         }
+        consulta.setId(++ultimoIdConsulta);
         this.consultas.add(consulta);
+
     }
 
     public Consulta procurarConsulta(long id) throws Exception {
@@ -164,7 +168,7 @@ public class ClinicaService {
                 throw new Exception("Já existe um medico com este id!");
             }
         }
-        medico.setId(++this.ultimoIdPaciente);
+        medico.setId(++this.ultimoIdMedico);
         this.medicos.add(medico);
         return medico;
     }
@@ -197,9 +201,10 @@ public class ClinicaService {
     }
 
     public void deletarMedico(long id) throws Exception {
-        for (Medico m : medicos) {
+        for (Medico m : this.medicos) {
             if (m.getId() == id) {
-                medicos.remove(m);
+                this.medicos.remove(m);
+                break;
             } else {
                 throw new Exception("Medico de Id" + id + " não existe");
             }
@@ -216,13 +221,13 @@ public class ClinicaService {
         Paciente p = this.procurarPaciente(id);
         return p.getExames();
     }
-    
-    public Exame procuraExameId(long idPaciente, long idExame) throws Exception{
+
+    public Exame procuraExameId(long idPaciente, long idExame) throws Exception {
         Paciente p = this.procurarPaciente(idPaciente);
         return p.procurarExame(idExame);
     }
-    
-    public Exame atualizaExameId(long idPaciente,long idExame, Exame ex) throws Exception{
+
+    public Exame atualizaExameId(long idPaciente, long idExame, Exame ex) throws Exception {
         ModelMapper mp = new ModelMapper();
         Exame exameAntigo = this.procuraExameId(idPaciente, idExame);
         ex.setId(exameAntigo.getId());

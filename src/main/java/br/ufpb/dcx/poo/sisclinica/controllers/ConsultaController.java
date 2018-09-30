@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ufpb.dcx.poo.sisclinica.models.Consulta;
 import br.ufpb.dcx.poo.sisclinica.services.ClinicaService;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class ConsultaController {
 
     @Autowired
@@ -44,7 +46,7 @@ public class ConsultaController {
         return new ResponseEntity<>("{ \"status\" : \" success\"}", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/consulta/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/consultas/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Consulta> atualizarConsultaId(@PathVariable(value = "id") int id, @RequestBody Consulta consultaAtualizada) throws Exception {
         Consulta consultaFinal = this.service.atualizarConsulta(id, consultaAtualizada);
         return new ResponseEntity<>(consultaFinal, HttpStatus.OK);

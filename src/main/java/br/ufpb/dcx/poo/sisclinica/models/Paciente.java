@@ -16,7 +16,7 @@ public class Paciente {
     private String cep;
     private String uf;
     private String tipoConsulta;
-    private List<Exame> exames;
+    private List<Exame> exames = new ArrayList<>();
     private long idUltimoExame = 0;
 
     public Paciente() {
@@ -34,7 +34,6 @@ public class Paciente {
         this.cep = cep;
         this.uf = uf;
         this.tipoConsulta = tipoConsulta;
-        this.exames = new ArrayList<>();
     }
 
     public long getId() {
