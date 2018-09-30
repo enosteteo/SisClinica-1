@@ -28,9 +28,9 @@ public class PacienteController {
     @RequestMapping(value = "/pacientes", method = RequestMethod.POST)
 
 
-    public ResponseEntity<String> adicionar(@RequestBody Paciente paciente) throws Exception {
-        this.service.adicionarPaciente(paciente);
-        return new ResponseEntity<>("{ \"status\": \"success\"}", HttpStatus.OK);
+    public ResponseEntity<Paciente> adicionar(@RequestBody Paciente paciente) throws Exception {
+        Paciente pacienteAdicionado = this.service.adicionarPaciente(paciente);
+        return new ResponseEntity<>(pacienteAdicionado, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.GET)
