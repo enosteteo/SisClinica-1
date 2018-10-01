@@ -26,7 +26,9 @@ public class SisClinicaApplicationTestPaciente {
 	public void testPaciente() {
 		
 		String amanda = "{\"nome\":\"amanda\",\"raca\": \"pardo\",\"dataNascimento\": \"04\",\"cpf\":\"123\",\"rg\":\"321\",\"sexo\":\"feminino\",\"nacionalidade\":\"brasileiro\",\"cep\":\"40\",\"uf\":\"pb\",\"tipoConsulta\":\"cardio\"}";
-		given().port(port)
+		
+                int id = 
+                given().port(port)
 			.contentType("application/json")
 			.body(amanda)
 		.when().port(port)
@@ -42,12 +44,14 @@ public class SisClinicaApplicationTestPaciente {
 			.body("nacionalidade",containsString("brasileiro"))
 			.body("cep",containsString("40"))
 			.body("uf",containsString("pb"))
-			.body("tipoConsulta",containsString("cardio"));
+			.body("tipoConsulta",containsString("cardio"))
+                .extract()
+                        .path("id");
 			
 		given().port(port)
 			.contentType("application/json")
 		.when().port(port)
-			.get("/pacientes/1")
+			.get("/pacientes/" + id)
 		.then()
 			.statusCode(200)
 			.body("id", greaterThan(0))
@@ -68,24 +72,24 @@ public class SisClinicaApplicationTestPaciente {
 			.get("/pacientes")
 		.then()
 			.statusCode(200)
-			.body("[0].id", greaterThan(0))
-			.body("[0].nome", containsString("amanda"))
-			.body("[0].raca",containsString("pardo"))
-			.body("[0].dataNascimento",containsString("04"))
-			.body("[0].cpf",containsString("123"))
-			.body("[0].rg",containsString("321"))
-			.body("[0].sexo",containsString("feminino"))
-			.body("[0].nacionalidade",containsString("brasileiro"))
-			.body("[0].cep",containsString("40"))
-			.body("[0].uf",containsString("pb"))
-			.body("[0].tipoConsulta",containsString("cardio"));
+			.body("["+ (id - 1)+"].id", greaterThan(0))
+			.body("["+ (id - 1)+"].nome", containsString("amanda"))
+			.body("["+ (id - 1)+"].raca",containsString("pardo"))
+			.body("["+ (id - 1)+"].dataNascimento",containsString("04"))
+			.body("["+ (id - 1)+"].cpf",containsString("123"))
+			.body("["+ (id - 1)+"].rg",containsString("321"))
+			.body("["+ (id - 1)+"].sexo",containsString("feminino"))
+			.body("["+ (id - 1)+"].nacionalidade",containsString("brasileiro"))
+			.body("["+ (id - 1)+"].cep",containsString("40"))
+			.body("["+ (id - 1)+"].uf",containsString("pb"))
+			.body("["+ (id - 1)+"].tipoConsulta",containsString("cardio"));
 		
 		String amandaAtualizado = "{\"nome\":\"amanda\",\"raca\": \"pardo\",\"dataNascimento\": \"04\",\"cpf\":\"123\",\"rg\":\"321\",\"sexo\":\"feminino\",\"nacionalidade\":\"brasileiro\",\"cep\":\"40\",\"uf\":\"pb\",\"tipoConsulta\":\"ultrassom\"}";
 		given().port(port)
 			.contentType("application/json")
 			.body(amandaAtualizado)
 		.when().port(port)
-			.put("/pacientes/1")
+			.put("/pacientes/" + id)
 		.then()
 			.statusCode(200)
 			.body("nome",containsString("amanda"))
@@ -103,7 +107,7 @@ public class SisClinicaApplicationTestPaciente {
 			.contentType("application/json")
 			.body(amanda)
 		.when().port(port)
-			.delete("/pacientes/1")
+			.delete("/pacientes/" + id)
 		.then()
 			.statusCode(200)
 			.body(equalTo("{ \"status\" : \" success\"}"));

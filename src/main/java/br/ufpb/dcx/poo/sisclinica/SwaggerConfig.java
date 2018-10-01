@@ -42,7 +42,7 @@ public class SwaggerConfig {
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
 
         apiInfoBuilder.title("Api-SisClinica");
-        apiInfoBuilder.description("Api CRUD para gerenciamente de Sistema Clínico.");
+        apiInfoBuilder.description("API para gerenciamente de Sistema Clínico.");
         apiInfoBuilder.version("1.0");
         apiInfoBuilder.termsOfServiceUrl("Termo de uso: Deve ser usada para estudos.");
         apiInfoBuilder.license("Licença - Open Source");

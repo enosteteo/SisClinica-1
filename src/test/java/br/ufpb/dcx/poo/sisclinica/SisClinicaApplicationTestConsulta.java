@@ -25,6 +25,7 @@ public class SisClinicaApplicationTestConsulta {
 	@Test
 	public void testConsulta() {
 		String consulta = "{\"paciente\":\"amanda\",\"medico\": \"cardio\",\"dataConsulta\": \"04\",\"dataRetorno\":\"123\"}";
+                
 		given().port(port)
 			.contentType("application/json")
 			.body(consulta)
@@ -33,7 +34,7 @@ public class SisClinicaApplicationTestConsulta {
 		.then()
 			.statusCode(200)
 			.body(equalTo("{ \"status\": \"success\"}"));
-	
+                
 		given().port(port)
 			.contentType("application/json")
 		.when().port(port)
