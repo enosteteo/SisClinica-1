@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class PacienteController {
     })
 
     @RequestMapping(value = "/pacientes", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Paciente>> listar() {
         List<Paciente> resultado = this.service.getPacientes();
         return new ResponseEntity<List<Paciente>>(resultado, HttpStatus.OK);
@@ -67,7 +69,7 @@ public class PacienteController {
     })
 
     @RequestMapping(value = "/pacientes", method = RequestMethod.POST)
-
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Paciente> adicionar(@RequestBody Paciente paciente) throws Exception {
 
         Paciente pacienteRetorno = this.service.adicionarPaciente(paciente);
@@ -94,7 +96,7 @@ public class PacienteController {
     })
 
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.GET)
-
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Paciente> listarPacienteId(@PathVariable(value = "id") int id) throws Exception {
         Paciente pacienteId;
         pacienteId = this.service.procurarPaciente(id);
@@ -121,6 +123,7 @@ public class PacienteController {
     })
 
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.DELETE)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<String> removePacienteId(@PathVariable(value = "id") int id) throws Exception {
         this.service.removePaciente(id);
         return new ResponseEntity<>("{ \"status\" : \" success\"}", HttpStatus.OK);
@@ -146,6 +149,7 @@ public class PacienteController {
     })
 
     @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Paciente> atualizarPacienteId(@PathVariable(value = "id") int id, @RequestBody Paciente pacienteAtualizado) throws Exception {
         Paciente pacienteFinal = this.service.atualizaPaciente(id, pacienteAtualizado);
         return new ResponseEntity<>(pacienteFinal, HttpStatus.OK);
