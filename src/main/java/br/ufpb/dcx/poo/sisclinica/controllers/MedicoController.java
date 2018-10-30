@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufpb.dcx.poo.sisclinica.models.Medico;
+import br.ufpb.dcx.poo.sisclinica.models.Consulta;
 import br.ufpb.dcx.poo.sisclinica.services.ClinicaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -145,4 +146,30 @@ public class MedicoController {
         this.service.deletarMedico(id);
         return new ResponseEntity<>("{ \"status\" : \" success\"}", HttpStatus.OK);
     }
+    
+    @ApiOperation(
+            value = "Obtem os dados de consultas de um médico cadastrado no sistema pelo seu ID",
+            response = ResponseEntity.class,
+            notes = "Essa operação retorna um JSON contendo os dados das consultas de um médico")
+    @ApiResponses(value = {
+        @ApiResponse(
+                code = 200,
+                message = "Retorna os dados das consultas de um médico em formato JSON",
+                response = ResponseEntity.class
+        )
+        ,
+			@ApiResponse(
+                code = 500,
+                message = "Caso tenhamos algum erro vamos retornar um ResponseEntity com a Exception",
+                response = ResponseEntity.class
+        )
+
+    })
+    
+    @RequestMapping(value = "/medicos/{id}/consultas", method = RequestMethod.GET)
+    public ResponseEntity<List<Consulta>> buscarConsultasMedico(@PathVariable("id") int id) throws Exception {
+        List<Consulta> retornoConsultas = this.service.buscarConsultasMedico(id);
+        return new ResponseEntity<>(retornoConsultas, HttpStatus.OK);
+    }
+    
 }

@@ -210,6 +210,17 @@ public class ClinicaService {
             }
         }
     }
+    
+    public List<Consulta> buscarConsultasMedico(long idMedico) throws Exception {
+    	List<Consulta> consultas = this.getConsultas();
+    	for (Consulta mc : this.getConsultas()) {
+            if (mc.getIdMedico() == idMedico) {
+                consultas.add(mc);
+                return consultas; 
+            }
+        }
+        throw new Exception("Consulta não encontrada");
+    }
 
     public Exame adicionaExamePaciente(long idPaciente, Exame exame) throws Exception {
         Paciente p = this.procurarPaciente(idPaciente);

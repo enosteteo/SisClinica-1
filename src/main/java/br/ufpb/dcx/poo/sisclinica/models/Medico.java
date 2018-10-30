@@ -93,5 +93,4 @@ public class Medico{
         this.plantao = plantao;
     }
 
-
 }
