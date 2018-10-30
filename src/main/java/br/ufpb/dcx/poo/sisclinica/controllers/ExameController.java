@@ -14,6 +14,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,7 @@ public class ExameController {
     })
 
     @RequestMapping(value = "/pacientes/{id}/exames", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Exame>> listaExamesPaciente(@PathVariable(value = "id") long id) throws Exception{
         List<Exame> lista = this.service.listaExamesPaciente(id);
         return new ResponseEntity<>(lista,HttpStatus.OK);
@@ -74,7 +76,8 @@ public class ExameController {
 
     })
     @RequestMapping(value = "/pacientes/{id}/exames/{id2}", method = RequestMethod.GET)
-    public ResponseEntity<Exame> procuraExamesIdPaciente(@PathVariable(value = "id") long idPaciente, @PathVariable(value = "id2") long idExame) throws Exception{
+      @CrossOrigin(origins = "http://localhost:4200")
+      public ResponseEntity<Exame> procuraExamesIdPaciente(@PathVariable(value = "id") long idPaciente, @PathVariable(value = "id2") long idExame) throws Exception{
         Exame exame = this.service.procuraExameId(idPaciente, idExame);
         return new ResponseEntity<>(exame,HttpStatus.OK);
     }
@@ -98,7 +101,8 @@ public class ExameController {
 
     })
     @RequestMapping(value = "/pacientes/{id}/exames", method = RequestMethod.POST)
-    public ResponseEntity<Exame> adicionarExamesPaciente(@PathVariable(value = "id") long id, @RequestBody Exame ex) throws Exception{
+    @CrossOrigin(origins = "http://localhost:4200")
+      public ResponseEntity<Exame> adicionarExamesPaciente(@PathVariable(value = "id") long id, @RequestBody Exame ex) throws Exception{
         Exame exame = this.service.adicionaExamePaciente(id, ex);
         return new ResponseEntity<>(exame,HttpStatus.OK);
     }
@@ -122,8 +126,9 @@ public class ExameController {
 
     })
     @RequestMapping(value = "/pacientes/{id}/exames/{id2}", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Exame> atualizaExamesPaciente(@PathVariable(value = "id") long idPaciente, @PathVariable(value = "id2") long idExame, @RequestBody Exame exame) throws Exception{
-        Exame exameAtualizado = this.service.atualizaExameId(idPaciente, idExame, exame);
-        return new ResponseEntity<>(exameAtualizado,HttpStatus.OK);
+    Exame exameAtualizado = this.service.atualizaExameId(idPaciente, idExame, exame);
+    return new ResponseEntity<>(exameAtualizado,HttpStatus.OK);
     }
 }

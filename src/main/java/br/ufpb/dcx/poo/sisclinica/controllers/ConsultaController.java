@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,7 @@ public class ConsultaController {
     })
 
     @RequestMapping(value = "/consultas", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Consulta>> listar() {
         List<Consulta> resultado = this.service.getConsultas();
         return new ResponseEntity<>(resultado, HttpStatus.OK);
@@ -69,6 +71,7 @@ public class ConsultaController {
     })
 
     @RequestMapping(value = "/consultas", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<String> adicionar(@RequestBody Consulta consulta) throws Exception {
         this.service.adicionarConsulta(consulta);
         return new ResponseEntity<>("{ \"status\": \"success\"}", HttpStatus.OK);
@@ -94,6 +97,7 @@ public class ConsultaController {
     })
 
     @RequestMapping(value = "/consultas/{id}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Consulta> listarConsultaId(@PathVariable(value = "id") int id) throws Exception {
         Consulta consultaId;
         consultaId = this.service.procurarConsulta(id);
@@ -119,6 +123,7 @@ public class ConsultaController {
 
     })
     @RequestMapping(value = "/consultas/{id}", method = RequestMethod.DELETE)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<String> removeConsultaId(@PathVariable(value = "id") int id) throws Exception {
         this.service.removeConsulta(id);
         return new ResponseEntity<>("{ \"status\" : \" success\"}", HttpStatus.OK);
@@ -143,6 +148,7 @@ public class ConsultaController {
 
     })
     @RequestMapping(value = "/consultas/{id}", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Consulta> atualizarConsultaId(@PathVariable(value = "id") int id, @RequestBody Consulta consultaAtualizada) throws Exception {
         Consulta consultaFinal = this.service.atualizarConsulta(id, consultaAtualizada);
         return new ResponseEntity<>(consultaFinal, HttpStatus.OK);
