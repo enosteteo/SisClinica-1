@@ -1,11 +1,7 @@
 package br.ufpb.dcx.poo.sisclinica.controllers;
 
-import br.ufpb.dcx.poo.sisclinica.models.Paciente;
-import br.ufpb.dcx.poo.sisclinica.services.ClinicaService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,22 +10,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import br.ufpb.dcx.poo.sisclinica.models.Consulta;
+import br.ufpb.dcx.poo.sisclinica.services.ClinicaService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PacienteController {
+public class ConsultaController {
 
     @Autowired
     private ClinicaService service;
 
     @ApiOperation(
-            value = "Obter Lista de pacientes cadastrados no sistema",
+            value = "Obtem a lista de consultas cadastradas no sistema",
             response = ResponseEntity.class,
-            notes = "Essa operação retorna um JSON contendo a lista de pacientes cadastrados no sistema e seus dados.")
+            notes = "Essa operação retorna um JSON contendo a lista de consultas cadastradas no sistema e seus dados.")
     @ApiResponses(value = {
         @ApiResponse(
                 code = 200,
-                message = "Retorna a lista de pacientes em formato JSON",
+                message = "Retorna a lista de consultas em formato JSON",
                 response = ResponseEntity.class
         )
         ,
@@ -41,22 +43,22 @@ public class PacienteController {
 
     })
 
-    @RequestMapping(value = "/pacientes", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultas", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<Paciente>> listar() {
-        List<Paciente> resultado = this.service.getPacientes();
-        return new ResponseEntity<List<Paciente>>(resultado, HttpStatus.OK);
+    public ResponseEntity<List<Consulta>> listar() {
+        List<Consulta> resultado = this.service.getConsultas();
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
 
     }
 
     @ApiOperation(
-            value = "Cadastra um paciente no sistema",
+            value = "Cadastra uma consulta no sistema",
             response = ResponseEntity.class,
-            notes = "Essa operação recebe um JSON com os dados do Paciente e o adiciona ao sistema")
+            notes = "Essa operação retorna um JSON contendo o status = success")
     @ApiResponses(value = {
         @ApiResponse(
                 code = 200,
-                message = "Retorna um JSON com os dados do paciente adicionado",
+                message = "Retorna um JSON contendo status = success",
                 response = ResponseEntity.class
         )
         ,
@@ -68,22 +70,21 @@ public class PacienteController {
 
     })
 
-    @RequestMapping(value = "/pacientes", method = RequestMethod.POST)
+    @RequestMapping(value = "/consultas", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Paciente> adicionar(@RequestBody Paciente paciente) throws Exception {
-
-        Paciente pacienteRetorno = this.service.adicionarPaciente(paciente);
-        return new ResponseEntity<>(pacienteRetorno, HttpStatus.OK);
+    public ResponseEntity<String> adicionar(@RequestBody Consulta consulta) throws Exception {
+        this.service.adicionarConsulta(consulta);
+        return new ResponseEntity<>("{ \"status\": \"success\"}", HttpStatus.OK);
     }
 
     @ApiOperation(
-            value = "Obter os dados de pacientes cadastrados no sistema pelo seu ID",
+            value = "Obtem os dados de uma consulta com base no seu ID",
             response = ResponseEntity.class,
-            notes = "Essa operação retorna um JSON contendo as informações do paciente identificado seu ID.")
+            notes = "Essa operação retorna um JSON contendo os dados de uma  consulta cadastrada")
     @ApiResponses(value = {
         @ApiResponse(
                 code = 200,
-                message = "Retorna um JSON com os dados do paciente",
+                message = "Retorna os dados da consulta em formato JSON",
                 response = ResponseEntity.class
         )
         ,
@@ -95,22 +96,22 @@ public class PacienteController {
 
     })
 
-    @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultas/{id}", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Paciente> listarPacienteId(@PathVariable(value = "id") int id) throws Exception {
-        Paciente pacienteId;
-        pacienteId = this.service.procurarPaciente(id);
-        return new ResponseEntity<>(pacienteId, HttpStatus.OK);
+    public ResponseEntity<Consulta> listarConsultaId(@PathVariable(value = "id") int id) throws Exception {
+        Consulta consultaId;
+        consultaId = this.service.procurarConsulta(id);
+        return new ResponseEntity<>(consultaId, HttpStatus.OK);
     }
 
     @ApiOperation(
-            value = "Deleta um paciente cadastrado no sistema pelo seu ID",
+            value = "Deleta uma consulta cadastrada no sistema pelo seu ID",
             response = ResponseEntity.class,
-            notes = "Essa operação retorna um JSON contendo o status da requisição.")
+            notes = "Essa operação retorna um JSON contendo o status = success")
     @ApiResponses(value = {
         @ApiResponse(
                 code = 200,
-                message = "Retorna um JSON contendo o status =  success",
+                message = "Essa operação retorna um JSON contendo o status = success",
                 response = ResponseEntity.class
         )
         ,
@@ -121,22 +122,21 @@ public class PacienteController {
         )
 
     })
-
-    @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/consultas/{id}", method = RequestMethod.DELETE)
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<String> removePacienteId(@PathVariable(value = "id") int id) throws Exception {
-        this.service.removePaciente(id);
+    public ResponseEntity<String> removeConsultaId(@PathVariable(value = "id") int id) throws Exception {
+        this.service.removeConsulta(id);
         return new ResponseEntity<>("{ \"status\" : \" success\"}", HttpStatus.OK);
     }
 
     @ApiOperation(
-            value = "Atualiza os dados de pacientes cadastrados no sistema pelo seu ID",
+            value = "Atualiza uma consulta cadastrada no sistema pelo seu ID",
             response = ResponseEntity.class,
-            notes = "Essa operação retorna um JSON contendo as informações do paciente atualizado que foi identificado pelo seu ID.")
+            notes = "Essa operação retorna um JSON contendo os dados da consulta atualizada")
     @ApiResponses(value = {
         @ApiResponse(
                 code = 200,
-                message = "Retorna um JSON com os dados do paciente",
+                message = "Essa operação retorna um JSON contendo os dados da consulta atualizada",
                 response = ResponseEntity.class
         )
         ,
@@ -147,12 +147,11 @@ public class PacienteController {
         )
 
     })
-
-    @RequestMapping(value = "/pacientes/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/consultas/{id}", method = RequestMethod.PUT)
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Paciente> atualizarPacienteId(@PathVariable(value = "id") int id, @RequestBody Paciente pacienteAtualizado) throws Exception {
-        Paciente pacienteFinal = this.service.atualizaPaciente(id, pacienteAtualizado);
-        return new ResponseEntity<>(pacienteFinal, HttpStatus.OK);
+    public ResponseEntity<Consulta> atualizarConsultaId(@PathVariable(value = "id") int id, @RequestBody Consulta consultaAtualizada) throws Exception {
+        Consulta consultaFinal = this.service.atualizarConsulta(id, consultaAtualizada);
+        return new ResponseEntity<>(consultaFinal, HttpStatus.OK);
     }
 
 }

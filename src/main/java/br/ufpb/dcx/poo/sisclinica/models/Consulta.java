@@ -1,39 +1,40 @@
 package br.ufpb.dcx.poo.sisclinica.models;
 
-/**
- *
- * @author nikni
- */
 public class Consulta {
-    
-    private Paciente paciente;
-    private Medico medico;
+
+    private long id;
+    private long idPaciente;
+    private long idMedico;
     private String dataConsulta;
     private String dataRetorno;
     private boolean aberta;
 
-    public Consulta(Paciente paciente, Medico medico, String dataConsulta, String dataRetorno, boolean aberta) {
-        this.paciente = paciente;
-        this.medico = medico;
+    public Consulta() {
+
+    }
+
+    public Consulta(long idPaciente, long idMedico, String dataConsulta, String dataRetorno, boolean aberta) {
+        this.idPaciente = idPaciente;
+        this.idMedico = idMedico;
         this.dataConsulta = dataConsulta;
         this.dataRetorno = dataRetorno;
         this.aberta = aberta;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
+    public long getIdPaciente() {
+        return idPaciente;
     }
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setIdPaciente(long idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
-    public Medico getMedico() {
-        return medico;
+    public long getIdMedico() {
+        return idMedico;
     }
 
-    public void setMedico(Medico medico) {
-        this.medico = medico;
+    public void setIdMedico(long idMedico) {
+        this.idMedico = idMedico;
     }
 
     public String getDataConsulta() {
@@ -59,6 +60,13 @@ public class Consulta {
     public void setAberta(boolean aberta) {
         this.aberta = aberta;
     }
-    
-    
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }
